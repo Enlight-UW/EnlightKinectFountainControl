@@ -55,7 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="EnlightFountainServiceInstantiationTest.cs" />
+    <Compile Include="EnlightFountainServiceTest.cs" />
     <Compile Include="MessageSerializationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
