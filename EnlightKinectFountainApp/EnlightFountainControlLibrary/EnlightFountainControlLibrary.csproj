@@ -48,12 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnlightFountainService.cs" />
-    <Compile Include="MessageSerializer.cs" />
     <Compile Include="Messages\Control\QueryControlList.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\Pattern\QueryAllPatterns.cs" />
     <Compile Include="Messages\Valves\QueryAllValves.cs" />
     <Compile Include="Messages\Valves\QueryValve.cs" />
+    <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\FountainPattern.cs" />
+    <Compile Include="Models\FountainPatternList.cs" />
+    <Compile Include="Models\FountainValveStatus.cs" />
+    <Compile Include="Models\FountainValveStatusList.cs" />
+    <Compile Include="Models\ServerBaseModel.cs" />
+    <Compile Include="Models\FountainController.cs" />
+    <Compile Include="Models\FountainControllerList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

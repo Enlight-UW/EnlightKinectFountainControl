@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using EnlightFountainControlLibrary.Messages;
+using EnlightFountainControlLibrary.Models;
+
 
 namespace EnlightFountainControlLibrary
 {
@@ -33,28 +35,40 @@ namespace EnlightFountainControlLibrary
             this.apiKey = apiKey;
         }
 
-        public string SendMessage(Message message)
+        public T SendMessage<T>(Message message) where T : IEnlightModelSerializer<T>, new()
         {
-            // TODO - SendMessage should return an object of sorts
-            // containing the deserialized data
             Task<string> task = null;
 
             try
             {
-                if (message.HttpHeader == HttpRequestType.GET)
+                if (message.Type == MessageType.GET)
                     task = SendGetMessage(message);
                 else
                     task = SendPostMessage(message);
             }
             catch (HttpRequestException)
             {
-                // TODO HANDLE
+                return default(T);
             }
 
             // wait for task complete
             task.Wait();
 
-            return task.Result;
+            // parse the json
+            // if an exception is thrown in parsing,
+            // we know we got the wrong object
+            try
+            {
+                T model = new T();
+                model = model.FromJson<T>(task.Result);
+
+                return (model == null) ? default(T) : model;
+            }
+
+            catch
+            {
+                return default(T);
+            }
         }
 
         private async Task<string> SendGetMessage(Message message)
@@ -67,20 +81,12 @@ namespace EnlightFountainControlLibrary
 
                 HttpResponseMessage response = await client.GetAsync(message.Url);
 
-                // TODO: need to parse JSON
-                // should at some point return a deserialized Task<object>
                 return await response.Content.ReadAsStringAsync();
             }
         }
 
         private async Task<string> SendPostMessage(Message message)
         {
-            //TODO need to inject API key
-            // serializer stuff goes here
-
-
-            // TODO: need to parse JSON
-            // should at some point return a deserialized Task<object>
             throw new NotImplementedException();
         }
     }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using EnlightFountainControlLibrary;
+using EnlightFountainControlLibrary.Messages;
+using EnlightFountainControlLibrary.Models;
 
 namespace EnlightFountainControlLibraryTest
 {
@@ -22,14 +24,14 @@ namespace EnlightFountainControlLibraryTest
         [TestMethod]
         public void MethodGetTest()
         {
-            var service = EnlightFountainService.GetInstance("http://private-anon-d80e94b59-enlight.apiary-mock.com", "some alphanumeric api key");
+            var service = EnlightFountainService.GetInstance("http://private-anon-492379f70-enlight.apiary-mock.com", "some alphanumeric api key");
             var msg = new EnlightFountainControlLibrary.Messages.Control.QueryControlList();
-            string result = service.SendMessage(msg);
+            FountainControllerList list = service.SendMessage<FountainControllerList>(msg);
 
             // TODO no idea why this test fails. The URIException makes no sense!
             // in actual production use, no exception is thrown - >:(
 
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(list);
         }
     }
 }

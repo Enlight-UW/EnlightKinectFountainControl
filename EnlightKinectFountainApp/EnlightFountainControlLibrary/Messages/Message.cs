@@ -7,16 +7,21 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+using EnlightFountainControlLibrary.Models;
+
 namespace EnlightFountainControlLibrary.Messages
 {
     /// <summary>
-    /// The HttpRequestType is to differentiate between messages that require GET or POST HTTP headers.
+    /// The MessageType is to differentiate between messages that require GET or POST HTTP headers.
     /// </summary>
-    public enum HttpRequestType
+    public enum MessageType
     {
         GET, POST
     }
 
+    /// <summary>
+    /// The Message abstract class is the base of all packets sent to the webserver.
+    /// </summary>
     public abstract class Message
     {
         /// <summary>
@@ -31,9 +36,9 @@ namespace EnlightFountainControlLibrary.Messages
         /// <summary>
         /// Returns the HTTP type of the message (GET or POST).
         /// </summary>
-        public virtual HttpRequestType HttpHeader
+        public virtual MessageType Type
         {
-            get { return HttpRequestType.GET; }
+            get { return MessageType.GET; }
         }
     }
 }
