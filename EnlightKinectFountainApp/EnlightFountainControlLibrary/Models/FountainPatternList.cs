@@ -29,7 +29,7 @@ namespace EnlightFountainControlLibrary.Models
             get { return items; }
         }
 
-        public FountainPatternList FromJson<FountainPatternList>(string json)
+        public new FountainPatternList FromJson<FountainPatternList>(string json)
         {
             return JsonConvert.DeserializeObject<FountainPatternList>(json, settings);
         }

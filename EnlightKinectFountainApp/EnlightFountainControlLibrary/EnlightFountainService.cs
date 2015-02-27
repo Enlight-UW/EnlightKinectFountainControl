@@ -44,7 +44,7 @@ namespace EnlightFountainControlLibrary
                 if (message.Type == MessageType.GET)
                     task = SendGetMessage(message);
                 else
-                    task = SendPostMessage(message);
+                    task = SendPostMessage(message as PostMessage);
             }
             catch (HttpRequestException)
             {
@@ -85,9 +85,22 @@ namespace EnlightFountainControlLibrary
             }
         }
 
-        private async Task<string> SendPostMessage(Message message)
+        private async Task<string> SendPostMessage(PostMessage message)
         {
-            throw new NotImplementedException();
+            // inject API key
+            message.Model.ApiKey = apiKey;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                StringContent content = new StringContent(message.Model.ToJson(), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(message.Url, content);
+                return await response.Content.ReadAsStringAsync();
+            }
         }
     }
 }

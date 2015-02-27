@@ -65,7 +65,7 @@ namespace EnlightFountainControlLibrary.Models
             get { return queuePosition; }
         }
 
-        public EnlightController FromJson<EnlightController>(string json)
+        public new EnlightController FromJson<EnlightController>(string json)
         {
             return JsonConvert.DeserializeObject<EnlightController>(json, settings);
         }

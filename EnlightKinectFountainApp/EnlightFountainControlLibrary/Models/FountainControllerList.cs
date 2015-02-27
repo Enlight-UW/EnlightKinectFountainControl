@@ -29,7 +29,7 @@ namespace EnlightFountainControlLibrary.Models
             get { return items; }
         }
 
-        public EnlightControllerList FromJson<EnlightControllerList>(string json)
+        public new EnlightControllerList FromJson<EnlightControllerList>(string json)
         {
             return JsonConvert.DeserializeObject<EnlightControllerList>(json, settings);
         }

@@ -12,6 +12,7 @@ namespace EnlightFountainControlLibraryTest
     [TestClass]
     public class EnlightFountainServiceTest
     {
+        private const string SERVER_URL = @"http://private-anon-492379f70-enlight.apiary-mock.com";
         [TestMethod]
         public void SingletonTest()
         {
@@ -24,7 +25,7 @@ namespace EnlightFountainControlLibraryTest
         [TestMethod]
         public void MethodGetTest()
         {
-            var service = EnlightFountainService.GetInstance("http://private-anon-492379f70-enlight.apiary-mock.com", "some alphanumeric api key");
+            var service = EnlightFountainService.GetInstance(SERVER_URL, "some alphanumeric api key");
             var msg = new EnlightFountainControlLibrary.Messages.Control.QueryControlList();
             FountainControllerList list = service.SendMessage<FountainControllerList>(msg);
 
@@ -32,6 +33,18 @@ namespace EnlightFountainControlLibraryTest
             // in actual production use, no exception is thrown - >:(
 
             Assert.IsNotNull(list);
+        }
+
+        [TestMethod]
+        public void MethodPostTest()
+        {
+            var service = EnlightFountainService.GetInstance(SERVER_URL, "some alphanumeric api key");
+            var msg = new EnlightFountainControlLibrary.Messages.Control.RequestControl(15);
+            RequestControlResponse model = service.SendMessage<RequestControlResponse>(msg);
+
+            // will fail as long as docs give incorrect JSON
+
+            Assert.IsNotNull(model);
         }
     }
 }

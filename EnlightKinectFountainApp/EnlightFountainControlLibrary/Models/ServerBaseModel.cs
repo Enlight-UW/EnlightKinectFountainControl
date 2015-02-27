@@ -12,7 +12,7 @@ namespace EnlightFountainControlLibrary.Models
     public class ServerBaseModel : BaseModel, IEnlightModelSerializer<ServerBaseModel>
     {
         [JsonProperty]
-        protected bool success;
+        private bool success;
 
         public ServerBaseModel() : this(false)
         {
@@ -24,15 +24,14 @@ namespace EnlightFountainControlLibrary.Models
             this.success = success;
         }
 
-        public string ToJson()
+        public bool Success
         {
-            return JsonConvert.SerializeObject(this);
+            get { return success; }
         }
 
-        public EnlightBaseModel FromJson<EnlightBaseModel>(string json)
+        public new ServerBaseModel FromJson<ServerBaseModel>(string json)
         {
-            return JsonConvert.DeserializeObject<EnlightBaseModel>(json, settings);
+            return JsonConvert.DeserializeObject<ServerBaseModel>(json, settings);
         }
     }
-
 }

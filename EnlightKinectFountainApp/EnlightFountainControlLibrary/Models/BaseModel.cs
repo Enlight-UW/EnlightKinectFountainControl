@@ -41,7 +41,7 @@ namespace EnlightFountainControlLibrary.Models
             settings.MissingMemberHandling = MissingMemberHandling.Error;
         }
 
-        public EnlightBaseModel FromJson<EnlightBaseModel>(string json)
+        public virtual BaseModel FromJson<BaseModel>(string json)
         {
             throw new NotImplementedException("Cannot deserialize into the abstract class EnlightBaseModel!");
         }

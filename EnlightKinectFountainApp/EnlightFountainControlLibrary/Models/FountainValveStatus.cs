@@ -56,7 +56,7 @@ namespace EnlightFountainControlLibrary.Models
             get { return enabled == 1; }
         }
 
-        public FountainValveStatus FromJson<FountainValveStatus>(string json)
+        public new FountainValveStatus FromJson<FountainValveStatus>(string json)
         {
             return JsonConvert.DeserializeObject<FountainValveStatus>(json, settings);
         }

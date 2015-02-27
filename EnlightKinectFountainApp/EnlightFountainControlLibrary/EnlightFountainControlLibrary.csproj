@@ -48,9 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnlightFountainService.cs" />
+    <Compile Include="Messages\Control\QueryControl.cs" />
     <Compile Include="Messages\Control\QueryControlList.cs" />
+    <Compile Include="Messages\Control\ReleaseControl.cs" />
+    <Compile Include="Messages\Control\RequestControl.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\Pattern\QueryAllPatterns.cs" />
+    <Compile Include="Messages\PostMessage.cs" />
     <Compile Include="Messages\Valves\QueryAllValves.cs" />
     <Compile Include="Messages\Valves\QueryValve.cs" />
     <Compile Include="Models\BaseModel.cs" />
@@ -58,6 +62,14 @@
     <Compile Include="Models\FountainPatternList.cs" />
     <Compile Include="Models\FountainValveStatus.cs" />
     <Compile Include="Models\FountainValveStatusList.cs" />
+    <Compile Include="Models\PostMessageModel.cs" />
+    <Compile Include="Models\Post\ControllerModel.cs" />
+    <Compile Include="Models\Post\PatternControlModel.cs" />
+    <Compile Include="Models\Post\RequestControlModel.cs" />
+    <Compile Include="Models\Post\ValveControlModel.cs" />
+    <Compile Include="Models\Post\ValveListControlModel.cs" />
+    <Compile Include="Models\QueryControlResponse.cs" />
+    <Compile Include="Models\RequestControlResponse.cs" />
     <Compile Include="Models\ServerBaseModel.cs" />
     <Compile Include="Models\FountainController.cs" />
     <Compile Include="Models\FountainControllerList.cs" />
