@@ -20,7 +20,7 @@ namespace EnlightFountainControlLibrary.Models
         [JsonProperty]
         private int active;
 
-        public FountainPattern() : this(9, null, 0)
+        public FountainPattern() : this(0, null, 0)
         {
         }
 
