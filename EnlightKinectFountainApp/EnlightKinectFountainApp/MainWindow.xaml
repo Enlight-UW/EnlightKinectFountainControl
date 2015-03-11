@@ -1,6 +1,7 @@
-﻿<Window x:Class="GettingStarted.MainWindow"
+﻿<Window x:Class="EnlightKinectFountainApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:k="http://schemas.microsoft.com/kinect/2013"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:k="http://schemas.microsoft.com/kinect/2013"
         Title="MainWindow" Height="500" Width="600">
     <Grid>
         <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" Name="sensorChooserUi" />

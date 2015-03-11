@@ -12,16 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 using Microsoft.Kinect;
 using Microsoft.Kinect.Toolkit;
+using Microsoft.Kinect.Toolkit.Interaction;
 using Microsoft.Kinect.Toolkit.Controls;
 
-namespace GettingStarted
+namespace EnlightKinectFountainApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window 
     {
         private KinectSensorChooser sensorChooser;
 
@@ -137,6 +136,6 @@ namespace GettingStarted
             if (!error)
                 kinectRegion.KinectSensor = args.NewSensor;
         }
+    }
 
     }
-}

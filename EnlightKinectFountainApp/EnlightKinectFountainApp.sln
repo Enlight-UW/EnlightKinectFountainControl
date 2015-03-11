@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{C80B49
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnlightFountainControlLibraryTest", "EnlightFountainControlLibraryTest\EnlightFountainControlLibraryTest.csproj", "{4193F488-1949-4273-9843-899D540874DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnlightKinectFountainApp", "EnlightKinectFountainApp\EnlightKinectFountainApp.csproj", "{B184B9AC-5C8B-4C33-9ACA-784667F35E92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{4193F488-1949-4273-9843-899D540874DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4193F488-1949-4273-9843-899D540874DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4193F488-1949-4273-9843-899D540874DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
