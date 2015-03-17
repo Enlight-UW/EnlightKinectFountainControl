@@ -4,9 +4,9 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2013"
         Title="MainWindow" Height="500" Width="600">
     <Grid>
-        <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" Name="sensorChooserUi" />
+        <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="sensorChooserUi" />
         <k:KinectUserViewer VerticalAlignment="Top" HorizontalAlignment="Center" k:KinectRegion.KinectRegion="{Binding ElementName=kinectRegion}" Height="100" UserColoringMode="Manual" />
-        <k:KinectRegion Name="kinectRegion">
+        <k:KinectRegion x:Name="mykinectRegion">
             <Grid>
                 <k:KinectScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" VerticalAlignment="Bottom">
                     <StackPanel Orientation="Horizontal" Name="scrollContent" />
