@@ -16,8 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnlightFountainControlLibra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnlightKinectFountainApp", "EnlightKinectFountainApp\EnlightKinectFountainApp.csproj", "{B184B9AC-5C8B-4C33-9ACA-784667F35E92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkeletonandVideo", "SkeletonBasics-WPF\SkeletonandVideo.csproj", "{8121846D-923E-4BB0-8647-30DA753D156E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,10 +34,6 @@ Global
 		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B184B9AC-5C8B-4C33-9ACA-784667F35E92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8121846D-923E-4BB0-8647-30DA753D156E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8121846D-923E-4BB0-8647-30DA753D156E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8121846D-923E-4BB0-8647-30DA753D156E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8121846D-923E-4BB0-8647-30DA753D156E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,16 +2,24 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:k="http://schemas.microsoft.com/kinect/2013"
-        Title="MainWindow" Height="500" Width="600">
+        Title="Enlight Fountain Kinect App" Height="500" Width="600" Loaded="OnLoaded" Closed="OnClosed">
     <Grid>
-        <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="sensorChooserUi" />
-        <k:KinectUserViewer VerticalAlignment="Top" HorizontalAlignment="Center" k:KinectRegion.KinectRegion="{Binding ElementName=kinectRegion}" Height="100" UserColoringMode="Manual" />
-        <k:KinectRegion x:Name="mykinectRegion">
-            <Grid>
-                <k:KinectScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto" VerticalAlignment="Bottom">
-                    <StackPanel Orientation="Horizontal" Name="scrollContent" />
-                </k:KinectScrollViewer>
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>        
+       
+        <k:KinectRegion x:Name="mykinectRegion" Grid.Column="0">
+            <k:KinectScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left">
+                <StackPanel Orientation="Vertical" Name="scrollContent" />
+            </k:KinectScrollViewer>
         </k:KinectRegion>
+        
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+            <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="sensorChooserUi"/>
+            <Viewbox Stretch="Uniform" HorizontalAlignment="Center">
+                <Image Name="Image" Width="640" Height="480"/>
+            </Viewbox>
+        </StackPanel>
     </Grid>
 </Window>
