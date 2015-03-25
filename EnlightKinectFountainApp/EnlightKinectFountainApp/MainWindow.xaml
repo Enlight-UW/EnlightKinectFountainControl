@@ -4,22 +4,27 @@
         xmlns:k="http://schemas.microsoft.com/kinect/2013"
         Title="Enlight Fountain Kinect App" Height="500" Width="600" Loaded="OnLoaded" Closed="OnClosed">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>        
-       
-        <k:KinectRegion x:Name="mykinectRegion" Grid.Column="0">
-            <k:KinectScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left">
-                <StackPanel Orientation="Vertical" Name="scrollContent" />
-            </k:KinectScrollViewer>
+        <k:KinectRegion x:Name="KinectRegion" Grid.Column="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <k:KinectScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled" 
+                                      HorizontalAlignment="Left"
+                                      Grid.Column="0">
+                    <StackPanel Orientation="Vertical" Name="ModeSelectorPanel" />
+                </k:KinectScrollViewer>
+
+                <Canvas x:Name= "AppCanvas" Grid.Column="1">
+                    <k:KinectSensorChooserUI x:Name="sensorChooserUi" Visibility="Hidden"/>
+                    <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image Name="Image"/>
+                    </Viewbox>
+                </Canvas>
+            </Grid>
         </k:KinectRegion>
-        
-        <StackPanel Orientation="Vertical" Grid.Column="1">
-            <k:KinectSensorChooserUI HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="sensorChooserUi"/>
-            <Viewbox Stretch="Uniform" HorizontalAlignment="Center">
-                <Image Name="Image" Width="640" Height="480"/>
-            </Viewbox>
-        </StackPanel>
     </Grid>
 </Window>

@@ -23,6 +23,8 @@ using Microsoft.Kinect.Toolkit.Controls;
 using EnlightFountainControlLibrary;
 using EnlightFountainControlLibrary.Messages;
 
+using EnlightKinectFountainApp.Gestures;
+
 namespace EnlightKinectFountainApp
 {
     /// <summary>
@@ -33,10 +35,18 @@ namespace EnlightKinectFountainApp
         #region constants
         private const string ENLIGHT_WEBSERVER_URL = "";
         private const string ENLIGHT_API_KEY = "";
+        private static readonly string[] MODE_COMMAND_TEXT =
+        {
+            "One jet", "Multiple jets", "All one side",
+            "All one side", "whooosh", "Many jets",
+            "jump", "free mode"
+        };
         #endregion
 
         #region class variables
         private KinectSensorChooser sensorChooser;
+
+        private Gesture currentGesture;
 
         /// <summary>
         /// Width of output drawing
@@ -227,40 +237,72 @@ namespace EnlightKinectFountainApp
             }
 
             if (!error)
-                mykinectRegion.KinectSensor = args.NewSensor;
+                KinectRegion.KinectSensor = args.NewSensor;
         }
 
         private void FillScrollContent()
         {
-            String[] commands = new String[10];
-            commands[0] = "One jet";
-            commands[1] = "Multiple jets";
-            commands[2] = "Random jet";
-            commands[3] = "All one side";
-            commands[4] = "whooosh";
-            commands[5] = "Many jets";
-            commands[6] = "jump";
-            commands[7] = "more words";
-            commands[8] = "even more";
-            commands[9] = "free mode";
+            ModeSelectorPanel.Children.Clear();
 
-            //fill scroll content
-            for (int i = 0; i < commands.Length; i++)
+            KinectTileButton[] modeButtons = new KinectTileButton[MODE_COMMAND_TEXT.Length];
+
+            // fill scroll content
+            for (int i = 0; i < MODE_COMMAND_TEXT.Length; i++)
             {
-                var button = new KinectTileButton
+                modeButtons[i] = new KinectTileButton
                 {
-                    Label = commands[i],
-                    Height = 100
+                    Label = MODE_COMMAND_TEXT[i],
+                    Height = 150
                 };
 
-                int i1 = i;
-                button.Click += delegate(System.Object o, RoutedEventArgs e)
-                {
-                    MessageBox.Show("You have selected command: " + button.Label);
-                };
-
-                scrollContent.Children.Add(button);
+                ModeSelectorPanel.Children.Add(modeButtons[i]);
             }
+
+            // XXX: REMOVE ONCE TESTING COMPLETE
+            modeButtons[0].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new TestGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            // TODO: hook each button to appropriate gesture in Gestures namespace
+        }
+
+        private void HandleSequenceUpdatedEvent(object sender, SequenceEventArgs args)
+        {
+            // ensure that the origin is our current gesture
+            if (sender != currentGesture)
+            {
+                Gesture g = sender as Gesture;
+
+                if (g != null)
+                    g.Dispose();
+
+                return;
+            }
+
+            // remove any buttons on the screen
+            Action removeStale = new Action(() => AppCanvas.Children.OfType<EnlightKinectTileButton>().ToList().ForEach(b => AppCanvas.Children.Remove(b)));
+            this.Dispatcher.Invoke(removeStale);
+
+            // if done
+            if (args.SequenceComplete)
+            {
+                // TODO: FIRE OFF NETWORK CALL TO MAIN SERVER
+                MessageBox.Show("Gesture executed!");
+
+                // clean up the current gesture, and reset
+                currentGesture.Dispose();
+                currentGesture = null;
+                return;
+            }
+
+            // add new child to window
+            Action addAction = new Action(() => AppCanvas.Children.Add(args.NextButton));
+            this.Dispatcher.Invoke(addAction);
         }
 
         /// <summary>
