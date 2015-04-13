@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="EnlightKinectTileButton.cs" />
     <Compile Include="Gestures\TestGesture.cs" />
+    <Compile Include="RightHandEventArgs.cs" />
     <Compile Include="SequenceEventArgs.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

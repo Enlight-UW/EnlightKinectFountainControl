@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace EnlightKinectFountainApp
 {
-    class RightHandEventArgs : RoutedEventArgs
+    public class RightHandEventArgs : RoutedEventArgs
     {
         public RightHandEventArgs(Point rightHand)
         {
