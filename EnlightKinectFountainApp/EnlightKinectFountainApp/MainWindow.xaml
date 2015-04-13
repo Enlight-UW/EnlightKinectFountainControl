@@ -19,11 +19,10 @@
         
         <Canvas x:Name= "AppCanvas" Grid.Column="1">
             <k:KinectSensorChooserUI x:Name="sensorChooserUi" Visibility="Hidden"/>
+            <Image Name="KinectFeed" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Hidden"/>
             <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Image Name="SkeletonOverlay" Height="960" Width="1280"/>
             </Viewbox>
-            
-            <Image Name="KinectFeed" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
         </Canvas>
     </Grid>
 </Window>

@@ -293,6 +293,8 @@ namespace EnlightKinectFountainApp
                 // TODO: FIRE OFF NETWORK CALL TO MAIN SERVER
                 MessageBox.Show("Gesture executed!");
 
+                this.SendRightHandPointToButton = null;
+
                 // clean up the current gesture, and reset
                 currentGesture.Dispose();
                 currentGesture = null;
@@ -330,9 +332,24 @@ namespace EnlightKinectFountainApp
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                     
                     // fire event to button to check
-                    SkeletonPoint relativePoint = skeletons[0].Joints[JointType.HandRight].Position;
-                    Point absolutePoint = SkeletonPointToScreen(relativePoint);
-                    this.SendRightHandPointToButton(this, new RightHandEventArgs(absolutePoint));
+                    Skeleton tracked = null;
+                    foreach (Skeleton s in skeletons)
+                    {
+                        if (s.TrackingState == SkeletonTrackingState.Tracked)
+                        {
+                            tracked = s;
+                            break;
+                        }
+                    }
+
+                    if (tracked != null)
+                    {
+                        SkeletonPoint relativePoint = tracked.Joints[JointType.HandRight].Position;
+                        Point absolutePoint = SkeletonPointToScreen(relativePoint);
+
+                        if (this.SendRightHandPointToButton != null)
+                            this.SendRightHandPointToButton(this, new RightHandEventArgs(absolutePoint));
+                    }
                 }
             }
 

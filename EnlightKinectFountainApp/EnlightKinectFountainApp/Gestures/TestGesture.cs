@@ -12,8 +12,8 @@ namespace EnlightKinectFountainApp.Gestures
         {
             sequence = new EnlightKinectTileButton[2];
 
-            sequence[0] = new EnlightKinectTileButton(100, 50);
-            sequence[1] = new EnlightKinectTileButton(400, 100);
+            sequence[0] = new EnlightKinectTileButton(600, 250);
+            sequence[1] = new EnlightKinectTileButton(300, 100);
         }
     }
 }

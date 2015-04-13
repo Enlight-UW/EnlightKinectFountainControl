@@ -64,6 +64,10 @@ namespace EnlightKinectFountainApp
             if (button == null)
                 return;
 
+            // hack for events firing when gesture just complete
+            if (sequence_index >= sequence.Length)
+                return;
+
             // reference check or equals() check? both *should* be OK
             if (sequence[sequence_index] != button)
                 return;

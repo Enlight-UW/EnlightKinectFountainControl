@@ -7,6 +7,8 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
+using System.Diagnostics;
+
 using Microsoft.Kinect.Toolkit.Controls;
 
 namespace EnlightKinectFountainApp
@@ -21,7 +23,11 @@ namespace EnlightKinectFountainApp
             this.Margin = new System.Windows.Thickness(left, top, 0, 0);
         }
 
-        public EventHandler<RoutedEventArgs> RightHandEntered;
+        public EventHandler<RoutedEventArgs> RightHandEntered
+        {
+            get;
+            set;
+        }
 
         public void CheckIfRightHandEntered(object sender, RightHandEventArgs args)
         {
