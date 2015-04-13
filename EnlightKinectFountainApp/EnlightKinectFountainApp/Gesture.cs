@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Windows;
 using System.Windows.Input;
 
 using Microsoft.Kinect.Toolkit.Controls;
@@ -28,7 +29,9 @@ namespace EnlightKinectFountainApp
             resetTimer.AutoReset = false;
 
             InitializeGestureSequence();
-            SetupHandPointerEnteredEvents();
+
+            foreach (EnlightKinectTileButton b in sequence)
+                b.RightHandEntered += this.SequenceUpdatedEvent;
         }
 
         public EventHandler<SequenceEventArgs> SequenceUpdated
@@ -52,16 +55,8 @@ namespace EnlightKinectFountainApp
             this.SequenceUpdated(this, new SequenceEventArgs(sequence[0], false));
         }
 
-        protected void SetupHandPointerEnteredEvents()
-        {
-            foreach (EnlightKinectTileButton button in sequence)
-            {
-                KinectRegion.AddHandPointerEnterHandler(button, HandPointerEntered);
-            }
-        }
-
         // what happens a button is entered
-        private void HandPointerEntered(object sender, HandPointerEventArgs event_args)
+        private void SequenceUpdatedEvent(object sender, RoutedEventArgs event_args)
         {
             EnlightKinectTileButton button = sender as EnlightKinectTileButton;
 

@@ -13,7 +13,7 @@ namespace EnlightFountainControlLibrary.Models.Post
     public class ValveListControlModel : ControllerModel
     {
         [JsonProperty]
-        private int bitmask;
+        private Int32 bitmask;
 
         private BitArray valveSet;
 
@@ -36,6 +36,25 @@ namespace EnlightFountainControlLibrary.Models.Post
             valveSet.CopyTo(temp, 0);
 
             bitmask = temp[0];
+        }
+
+        public void SetValveRange(bool enable, int startValveNumber, int endValveNumber)
+        {
+            if (startValveNumber < 0 || startValveNumber >= valveSet.Length 
+                || endValveNumber < 0 || endValveNumber >= valveSet.Length)
+                return;
+
+            int start = startValveNumber;
+            int end = endValveNumber;
+
+            if (start > end)
+            {
+                start = endValveNumber;
+                end = startValveNumber;
+            }
+
+            for (int i = start; i < end; i++)
+                this.SetValve(enable, i);
         }
     }
 }

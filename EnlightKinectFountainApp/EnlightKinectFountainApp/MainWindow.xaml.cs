@@ -51,12 +51,12 @@ namespace EnlightKinectFountainApp
         /// <summary>
         /// Width of output drawing
         /// </summary>
-        private const float RenderWidth = 640.0f;
+        private const float RenderWidth = 1280.0f;
 
         /// <summary>
         /// Height of our output drawing
         /// </summary>
-        private const float RenderHeight = 480.0f;
+        private const float RenderHeight = 960.0f;
 
         /// <summary>
         /// Thickness of drawn joint lines
@@ -132,6 +132,8 @@ namespace EnlightKinectFountainApp
 
         #endregion
 
+        public EventHandler<RightHandEventArgs> WindowToButtonEvent;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -155,7 +157,7 @@ namespace EnlightKinectFountainApp
             this.imageSource = new DrawingImage(this.drawingGroup);
 
             // Display the drawing using our image control
-            Image.Source = this.imageSource;
+            SkeletonOverlay.Source = this.imageSource;
 
             this.sensor = sensorChooser.Kinect;
 
@@ -175,10 +177,7 @@ namespace EnlightKinectFountainApp
 
                 // This is the bitmap we'll display on-screen
                 this.colorBitmap = new WriteableBitmap(this.sensor.ColorStream.FrameWidth, this.sensor.ColorStream.FrameHeight, 96.0, 96.0, PixelFormats.Bgr32, null);
-
-                /* The above line of code was what was removed to get the images to work together.  This is the more direct way to write to the screen
-                 * therefore it can cause issues (drawing multiple images) when this is directly written to, like in the line above.
-                 */
+                this.KinectFeed.Source = colorBitmap;
 
                 // Add an event handler to be called whenever there is new color frame data
                 this.sensor.ColorFrameReady += this.SensorColorFrameReady;
@@ -300,9 +299,17 @@ namespace EnlightKinectFountainApp
                 return;
             }
 
+            this.SendRightHandPointToButton = args.NextButton.CheckIfRightHandEntered;
+
             // add new child to window
             Action addAction = new Action(() => AppCanvas.Children.Add(args.NextButton));
             this.Dispatcher.Invoke(addAction);
+        }
+
+        public EventHandler<RightHandEventArgs> SendRightHandPointToButton
+        {
+            get;
+            private set;
         }
 
         /// <summary>
@@ -321,16 +328,21 @@ namespace EnlightKinectFountainApp
                 {
                     skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
                     skeletonFrame.CopySkeletonDataTo(skeletons);
+                    
+                    // fire event to button to check
+                    SkeletonPoint relativePoint = skeletons[0].Joints[JointType.HandRight].Position;
+                    Point absolutePoint = SkeletonPointToScreen(relativePoint);
+                    this.SendRightHandPointToButton(this, new RightHandEventArgs(absolutePoint));
                 }
             }
 
             using (DrawingContext dc = this.drawingGroup.Open())
             {
                 // Draw a transparent background to set the render size
-                dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+                //dc.DrawRectangle(Brushes.White, null, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
 
                 //This is where the magic happens. The video image from the kinect is moved to the screen here
-                dc.DrawImage(colorBitmap, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
+                //dc.DrawImage(colorBitmap, new Rect(0.0, 0.0, RenderWidth, RenderHeight));
 
                 //This is where the spooky skeleton dark magic happens. Bones happen and get drawn to the screen and stuff I guess
                 if (skeletons.Length != 0)
@@ -378,7 +390,6 @@ namespace EnlightKinectFountainApp
                         this.colorPixels,
                         this.colorBitmap.PixelWidth * sizeof(int),
                         0);
-
                 }
             }
         }
