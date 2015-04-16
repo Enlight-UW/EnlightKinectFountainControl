@@ -17,13 +17,14 @@
                                       Grid.Column="0">
                     <StackPanel Orientation="Vertical" Name="ModeSelectorPanel" />
                 </k:KinectScrollViewer>
+                
 
-                <Canvas x:Name= "AppCanvas" Grid.Column="1">
+            <Canvas x:Name= "AppCanvas" Grid.Column="1">
                     <k:KinectSensorChooserUI x:Name="sensorChooserUi" Visibility="Hidden"/>
-                    <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <Image Name="Image"/>
-                    </Viewbox>
-                </Canvas>
+                <Viewbox Stretch="Uniform" HorizontalAlignment="Center">
+                    <Image Name="Image"/>
+                </Viewbox>
+            </Canvas>
             </Grid>
         </k:KinectRegion>
     </Grid>

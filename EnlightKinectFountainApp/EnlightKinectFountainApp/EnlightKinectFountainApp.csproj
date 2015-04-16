@@ -70,7 +70,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="EnlightKinectTileButton.cs" />
-    <Compile Include="Gestures\TestGesture.cs" />
+    <Compile Include="GestureButtonClickHandler.cs" />
+    <Compile Include="Gestures\CheckGesture.cs" />
+    <Compile Include="Gestures\LineGesture.cs" />
+    <Compile Include="Gestures\StarGesture.cs" />
+    <Compile Include="Gestures\TriangleGesture.cs" />
+    <Compile Include="Gestures\WaveGesture.cs" />
+    <Compile Include="Gestures\WGesture.cs" />
+    <Compile Include="Gestures\ZGesture.cs" />
     <Compile Include="SequenceEventArgs.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

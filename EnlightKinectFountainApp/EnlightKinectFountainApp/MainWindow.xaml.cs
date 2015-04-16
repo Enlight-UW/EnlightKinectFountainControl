@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -37,9 +38,9 @@ namespace EnlightKinectFountainApp
         private const string ENLIGHT_API_KEY = "";
         private static readonly string[] MODE_COMMAND_TEXT =
         {
-            "One jet", "Multiple jets", "All one side",
-            "All one side", "whooosh", "Many jets",
-            "jump", "free mode"
+            "Check", "Line", "Triangle", 
+            "Wave", "Z",
+            "Star", "W"
         };
         #endregion
 
@@ -132,14 +133,17 @@ namespace EnlightKinectFountainApp
 
         #endregion
 
+        private Color[] brushes = { Colors.AliceBlue, Colors.Chartreuse, Colors.DodgerBlue, Colors.MistyRose, Colors.Pink, Colors.Salmon, Colors.Thistle, Colors.Yellow, Colors.WhiteSmoke};
+        private int brushCounter;
+
         public MainWindow()
         {
             InitializeComponent();
+            brushCounter = 0;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            // TODO: initialize up EnlightFountainService
             enlightFountainService = EnlightFountainService.GetInstance(ENLIGHT_WEBSERVER_URL, ENLIGHT_API_KEY);
 
             this.sensorChooser = new KinectSensorChooser();
@@ -258,17 +262,68 @@ namespace EnlightKinectFountainApp
                 ModeSelectorPanel.Children.Add(modeButtons[i]);
             }
 
-            // XXX: REMOVE ONCE TESTING COMPLETE
             modeButtons[0].Click += delegate(object sender, RoutedEventArgs e)
             {
                 if (currentGesture != null)
                     return;
 
-                currentGesture = new TestGesture();
+                currentGesture = new CheckGesture();
                 currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
             };
 
-            // TODO: hook each button to appropriate gesture in Gestures namespace
+            modeButtons[1].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new LineGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            modeButtons[2].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new TriangleGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            modeButtons[3].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new WaveGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            modeButtons[4].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new ZGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            modeButtons[5].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new StarGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
+
+            modeButtons[6].Click += delegate(object sender, RoutedEventArgs e)
+            {
+                if (currentGesture != null)
+                    return;
+
+                currentGesture = new WGesture();
+                currentGesture.SequenceUpdated += HandleSequenceUpdatedEvent;
+            };
         }
 
         private void HandleSequenceUpdatedEvent(object sender, SequenceEventArgs args)
@@ -291,9 +346,13 @@ namespace EnlightKinectFountainApp
             // if done
             if (args.SequenceComplete)
             {
-                // TODO: FIRE OFF NETWORK CALL TO MAIN SERVER
-                MessageBox.Show("Gesture executed!");
+                Action changeColor = new Action(() =>  AppCanvas.Background = new SolidColorBrush(brushes[brushCounter]));
 
+                brushCounter++;
+                brushCounter %= brushes.Length;
+
+                this.Dispatcher.Invoke(changeColor);
+                    
                 // clean up the current gesture, and reset
                 currentGesture.Dispose();
                 currentGesture = null;

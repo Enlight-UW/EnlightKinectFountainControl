@@ -10,7 +10,8 @@ namespace EnlightKinectFountainApp.Gestures
     {
         protected override void InitializeGestureSequence()
         {
-            sequence = new EnlightKinectTileButton[4];
+            sequence = new EnlightKinectTileButton[5];
+
             sequence[0] = new EnlightKinectTileButton(0, 150);
             sequence[1] = new EnlightKinectTileButton(600, 150);
             sequence[2] = new EnlightKinectTileButton(300, 300);
